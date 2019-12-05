@@ -60,7 +60,7 @@ kramdown:
 # disqus_username: qiubaiying
 
 # Gitalk
-#gitalk:
+gitalk:
    enable: true    #是否开启Gitalk评论
    clientID: 882292caf81497d6d76e                            #生成的clientID
    clientSecret: e374826a451204afd6154bab2b3e0fff5fe1c1de    #生成的clientSecret
