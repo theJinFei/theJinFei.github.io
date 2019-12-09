@@ -1,6 +1,6 @@
 # Site settings
-title: JinFei Blog
-SEOTitle: 金飞的博客 | JinFei Blog
+title: JinFei's Blog
+SEOTitle: 金飞的博客 | JinFei's Blog
 header-img: img/post-bg-desk.jpg
 email: luojf@nbjl.nankai.edu.cn
 description: "Every failure is leading towards success."
@@ -99,14 +99,14 @@ service-worker: true
 # Friends
 friends: [
     {
-        title: "QH",
+        title: "QiHao",
         href: "https://github.com/theqihao"
     },{
-        title: "JCZ",
+        title: "JiaChenZ",
         href: "http://blog.jcix.top/"
     }
 	,{
-        title: "ZSHB",
+        title: "ZHaoSHuaiB",
         href: "https://stephenri.github.io/"
     }
 ]
