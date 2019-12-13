@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]栈的压入、弹出序列"               # 标题  
 subtitle:   "栈"  #副标题 
-date:       2019-12-07              # 时间 
+date:       2019-12-13              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -21,6 +21,8 @@ tags:                               #标签
 - 时间复杂度O(n^2)
 
 
+### 20191207
+
 ```C++
 class Solution {
 public:
@@ -36,9 +38,31 @@ public:
                 s.pop();
                 curPosB++;
             }
-            
         }
         return s.empty();
+    }
+};
+```
+
+### 20191213
+
+```C++
+class Solution {
+public:
+    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+        if(pushV.size() == 0 || popV.size() == 0){
+            return false;
+        }
+        stack<int> s1;
+        int j = 0;
+        for(int i = 0; i < pushV.size(); i++){
+            s1.push(pushV[i]);
+            while(j < popV.size() && s1.top() == popV[j]){
+                s1.pop();
+                j++;
+            }
+        }
+        return s1.empty();
     }
 };
 ```
