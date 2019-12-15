@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]复杂链表的复制"               # 标题  
 subtitle:   "链表复制"  #副标题 
-date:       2019-12-09 12:00:00              # 时间 
+date:       2019-12-15 16:58:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -85,4 +85,80 @@ public:
 };
 ```
 
-  
+## 第二遍注意的点
+
+- **注意指针的移动**
+- 仔细点，指针很容易错
+
+
+```C++
+/*
+struct RandomListNode {
+    int label;
+    struct RandomListNode *next, *random;
+    RandomListNode(int x) :
+            label(x), next(NULL), random(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    RandomListNode* Clone(RandomListNode* pHead)
+    {
+        copyNode(pHead);
+        copyRandomPoint(pHead);
+        RandomListNode* copyHead = splitList(pHead);
+        return copyHead;
+    }
+    
+    void copyNode(RandomListNode* pHead){
+        if(pHead == NULL){
+            return;
+        }
+        RandomListNode* p = pHead;
+        while(p){
+            RandomListNode* newNode = new RandomListNode(p -> label);
+            newNode -> random = NULL;
+            newNode -> next = p -> next;
+            p -> next = newNode;
+            p = newNode -> next;
+        }
+    }
+    
+    void copyRandomPoint(RandomListNode* pHead){
+        if(pHead == NULL){
+            return;
+        }
+        RandomListNode* p = pHead;
+        while(p){
+            RandomListNode* copyNode = p -> next;
+            if(p -> random != NULL){
+                copyNode -> random = p -> random -> next;
+            }
+            p = copyNode -> next;
+        }
+    }
+    
+    RandomListNode* splitList(RandomListNode* pHead){
+        if(pHead == NULL){
+            return NULL;
+        }
+        RandomListNode* copyHead;
+        RandomListNode* copyNode;
+        RandomListNode* pNode = pHead;
+        if(pNode != NULL){
+            copyNode = copyHead = pNode -> next;
+            pNode -> next = copyNode -> next;
+            pNode = pNode -> next;
+        }
+        while(pNode != NULL){
+            copyNode -> next = pNode -> next;
+            copyNode = copyNode -> next;
+            pNode -> next = copyNode -> next;
+            pNode = pNode -> next;
+        }
+        
+        return copyHead;
+    }
+};
+```

@@ -22,7 +22,7 @@ tags:                               #标签
 
 
 - 快慢指针的使用
-- 首先要知道循环结束的条件，begin从开头 到 sum/2处，想一想，如果要加sum/2以后的数字，一定是要比sum大的
+- **首先要知道循环结束的条件，begin从开头 到 sum/2处，想一想，如果要加sum/2以后的数字，一定是要比sum大的**
 - 然后如果更新了begin，end，记得更新curSum
 - 比如当curSum == sum时，begin++， end++， 此时要重新计算curSum
 - 当curSum < sum的时候一样，end++后，curSum更新

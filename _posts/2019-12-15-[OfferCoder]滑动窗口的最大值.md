@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]滑动窗口的最大值"               # 标题  
 subtitle:   "滑动窗口固定大小"  #副标题 
-date:       2019-12-09              # 时间 
+date:       2019-12-15 10:42:00            # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -56,4 +56,40 @@ private:
 };
 ```
 
-  
+## 第二遍解题思路及异常的情况
+
+- 有一个坑，一直报段错误，其实是异常的问题
+- 给定窗口的大小size < 0 会报段错误
+- 所以判断异常的时候要三个条件，
+    1. 给定的数组的size为0
+    2. 给定窗口的大小大于给定数组的大小
+    3. 给定窗口的size小于0
+
+```C++
+class Solution {
+public:
+    vector<int> maxInWindows(const vector<int>& num, unsigned int size)
+    {
+        vector<int> res;
+        if(num.size() == 0 || size > num.size() || size <= 0){
+            return res;
+        }
+        vector<int> temp;
+        for(int i = 0; i < num.size(); i++){
+            if(temp.size() < size){
+                temp.push_back(num[i]);     // 不用第一个刷的那么复杂，插完进行判断就行
+            }   
+            if(temp.size() == size){        // 如果等于size，就erase一个。
+                res.push_back(findMax(temp));
+                vector<int>::iterator iter = temp.begin();
+                temp.erase(iter);
+            }
+        }
+        return res;
+    }
+    int findMax(vector<int> v){
+        sort(v.begin(), v.end());
+        return v[v.size() - 1];
+    }
+};
+```
