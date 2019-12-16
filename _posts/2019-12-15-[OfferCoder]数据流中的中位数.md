@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]数据流中的中位数"               # 标题  
 subtitle:   "C++最大最小堆模拟"  #副标题 
-date:       2019-12-08              # 时间 
+date:       2019-12-15 21:58:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -78,4 +78,69 @@ private:
 };
 ```
 
-  
+## 第二遍解题思路
+
+- 思路基本上正确
+- 实现上，要记住STL的使用规则
+- push_heap()是在堆的基础上进行数据的插入操作，参数与make_heap()相同，需要注意的是，只有make_heap（）和push_heap（）同为大顶堆或小顶堆，才能插入。
+- pop_heap()是在堆的基础上，弹出堆顶元素。这里需要注意的是，**pop_heap()并没有删除元素，而是将堆顶元素和数组最后一个元素进行了替换，如果要删除这个元素，还需要对数组进行pop_back()操作。**
+- 第三个参数是可选的，可以用伪函数less()和greater()来生成大顶堆和小顶堆，其中type为元素类型。如果只传入前两个参数，默认是生成大顶堆。
+
+```C++
+class Solution {
+public:
+    void Insert(int num)
+    {
+        if((min.size() + max.size() & 1) == 0){     // 偶数个元素 
+            // 将新元素插入到最大堆里 在此之前 要比较min的最大值与num，如果最大堆 max[0] > num, 则将max最大值弹出，插入到最小堆min中
+            if(max.size() > 0 && num < max[0]){
+                max.push_back(num);
+                // push_heap()是在堆的基础上进行数据的插入操作，参数与make_heap()相同，
+                // 需要注意的是，只有make_heap（）和push_heap（）同为大顶堆或小顶堆，才能插入。
+                push_heap(max.begin(), max.end(), less<int>());     // 这样能保证 max 从大到小降序，max[0]即为最大
+                num = max[0];
+                // 弹出首元素 pop_heap()是在堆的基础上，弹出堆顶元素。
+                // 这里需要注意的是，pop_heap()并没有删除元素，而是将堆顶元素和数组最后一个元素进行了替换， -> 这样便于后面pop_back操作
+                // 如果要删除这个元素，还需要对数组进行pop_back()操作。
+                pop_heap(max.begin(), max.end(), less<int>());      
+                max.pop_back();
+            }
+            min.push_back(num);
+            push_heap(min.begin(), min.end(), greater<int>());
+            
+        }else{
+            if(min.size() > 0 && num > min[0]){
+                min.push_back(num);
+                push_heap(min.begin(), min.end(), greater<int>());
+                num = min[0];
+                pop_heap(min.begin(), min.end(), greater<int>());
+                min.pop_back();
+            }
+            max.push_back(num);
+            push_heap(max.begin(), max.end(), less<int>());
+        }
+    }
+
+    double GetMedian()
+    { 
+        if(min.size() + max.size() == 0){
+            return 0.0;
+        }
+        if((min.size() + max.size() & 1) == 0){
+            return (min[0] + max[0]) / 2.0;
+        }else{
+            return (double)min[0];
+        }
+    }
+
+    
+private:
+    // 保证最小堆里的元素每个都比最大堆的元素 要大
+    // 假设每次插入的时候，如果是奇数元素，则往最大堆里插入
+    // 如果此时是偶数个元素，则往最小堆里插入即可
+    // 这样求中位数的话，如果此时奇数个元素的话，那么一定是最小堆的一个首元素
+    // 如果是偶数个元素，最大堆的首元素+最小堆的首元素 加起来除以2就是中位数
+    vector<int> min;        // 最小堆 
+    vector<int> max;        // 最大堆
+};
+```
