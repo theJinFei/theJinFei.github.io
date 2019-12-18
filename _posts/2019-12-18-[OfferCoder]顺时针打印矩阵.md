@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]顺时针打印矩阵"               # 标题  
 subtitle:   "数组打印"  #副标题 
-date:       2019-12-09              # 时间 
+date:       2019-12-18 22:31:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -32,7 +32,7 @@ public:
             res.push_back(matrix[0][0]);
             return res;
         }
-        // 计算打印的圈数 circle = (min(row, col) - 1) / 2
+        // 计算打印的圈数 circle = (min(row, col) - 1) / 2 + 1
         int circle = (min(row, col) - 1) / 2 + 1;
         for(int i = 0; i < circle; i++){
             // 从左到右
@@ -59,5 +59,13 @@ public:
     
 };
 ```
+
+
+## 第二遍刷题的问题
+
+- **圈数忘记，可以记住，(min(row, col) - 1) / 2 + 1**
+- 最后从右往左打印，从下往上打印重复条件判断忘记
+- 从右往左打印  row - 1 - i != i
+- 从下往上打印  col - 1 - i != i
 
   
