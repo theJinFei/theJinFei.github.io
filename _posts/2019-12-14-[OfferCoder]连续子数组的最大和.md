@@ -50,3 +50,42 @@ public:
     }
 };
 ```
+
+## 第二遍问题 20.01.12
+
+
+- dp思想
+- 递推关系式记错
+- 应该是 if(dp[i - 1] + array[i] > array[i])，就是前一个加上本次的能不能抵消到本次负数的影响
+- 而不是dp[i - 1] + array[i] > 0就行。。
+
+- 用例:
+- 比如测试用例[1,-2,3,10,-4,7,2,-5]
+- 如果要用 dp[i - 1] + array[i] > 0， 前一个-2也会加上去，这样3的值就会少2，变成1（仍然大于0，满足条件判断），这样总体的值就会少
+
+```C++
+class Solution {
+public:
+    int FindGreatestSumOfSubArray(vector<int> array) {
+        if(array.size() == 0){
+            return 0;
+        }
+        int dp[array.size()];
+        memset(dp, 0, sizeof(int) * (array.size()));
+        int res = INT_MIN;
+        res = array[0];
+        dp[0] = array[0];
+        for(int i = 1; i < array.size(); i++){
+            if(dp[i - 1] + array[i] > array[i]){
+                dp[i] = dp[i - 1] + array[i];
+            }else{
+                dp[i] = array[i];
+            }
+            if(dp[i] > res){
+                res = dp[i];
+            }
+        }
+        return res;
+    }
+};
+```

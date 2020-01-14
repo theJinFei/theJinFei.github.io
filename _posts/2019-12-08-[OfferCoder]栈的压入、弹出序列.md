@@ -67,4 +67,23 @@ public:
 };
 ```
 
-  
+## 0114刷题
+- 注意判断的时候，pos的位置不能越界
+
+```C++
+class Solution {
+public:
+    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+        stack<int> s;
+        int pos = 0;
+        for(int i = 0; i < pushV.size(); i++){
+            s.push(pushV[i]);
+            while(pos < popV.size() && s.top() == popV[pos]){
+                s.pop();
+                pos++;
+            }
+        }
+        return s.empty();
+    }
+};
+```
