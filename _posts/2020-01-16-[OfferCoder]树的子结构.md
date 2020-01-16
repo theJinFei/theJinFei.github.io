@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]树的子结构"               # 标题  
 subtitle:   "判断B是不是A的子树，两个递归的使用"  #副标题 
-date:       2019-12-18 9:35:00              # 时间 
+date:       2020-1-16 9:35:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -70,5 +70,56 @@ public:
             DoesTree1HaveTree2(pRoot1 -> right, pRoot2 -> right);
     }
 
+};
+```
+
+
+
+## 0116解题思路
+
+- 首先一个递归是判断Tree1的全部，相当于从根节点全部遍历一遍（树的先序遍历）
+- 每遍历到一个根节点的时候，就进行一次对比，拿当前节点与Tree2节点对比
+- 第二个递归就是遍历Tree1的当前节点与Tree2的当前节点是否相等
+
+```C++
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2)
+    {
+        bool res = false;
+        if(pRoot1 == NULL || pRoot2 == NULL){
+            return NULL;
+        }
+        res = DoesTree1HaveTree2(pRoot1, pRoot2);
+        if(!res){
+            res = HasSubtree(pRoot1 -> left, pRoot2);
+        }
+        if(!res){
+            res = HasSubtree(pRoot1 -> right, pRoot2);
+        }
+        return res;
+    }
+    
+    bool DoesTree1HaveTree2(TreeNode* pRoot1, TreeNode* pRoot2){
+        if(pRoot2 == NULL){
+            return true;
+        }
+        if(pRoot1 == NULL){
+            return false;
+        }
+        if(pRoot1 -> val != pRoot2 -> val){
+            return false;
+        }
+        return DoesTree1HaveTree2(pRoot1 -> left, pRoot2 -> left) && DoesTree1HaveTree2(pRoot1 -> right, pRoot2 -> right);
+    }
 };
 ```
