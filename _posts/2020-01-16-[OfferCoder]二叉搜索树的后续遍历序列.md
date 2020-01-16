@@ -1,8 +1,8 @@
 ---
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]判断二叉搜索树的后序遍历"               # 标题  
-subtitle:   "二叉搜索树"  #副标题 
-date:       2019-12-18 11:15:00              # 时间 
+subtitle:   "二叉搜索树的遍历"  #副标题 
+date:       2020-1-16 11:15:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -68,7 +68,6 @@ public:
 - 递归判断左右序列是否满足对应的条件
 - 序列跟根元素比较，（小于根元素的都在左边，大于根元素的都在树的右边），先判断一个pos，然后根据规则， 判断右边的data是否都比根节点小（如果不满足，直接返回false就行）
 - **注意左右序列递归结束的条件为，begin > end, 递归一定要有结束条件，不然一直递归下去，会报内存使用异常，栈溢出等等**
-- 
 
 ```C++
 class Solution {
@@ -106,4 +105,50 @@ public:
 };
 ```
 
+
+## 0116第三遍解题思路
+
+- 最后需要判断是否为空，然后才继续递归下去判断是比较重要的
+
+```C++
+class Solution {
+public:
+    bool VerifySquenceOfBST(vector<int> sequence) {
+        int size = sequence.size();
+        if(size == 0){
+            return false;
+        }
+        int data = sequence[size - 1];
+        int pos = 0;
+        while(sequence[pos] < data){
+            pos++;
+        }
+        for(int i = pos; i < size - 1; i++){
+            if(sequence[i] < data){
+                return false;
+            }
+        }
+        vector<int> leftV, rightV;
+        for(int i = 0; i < pos; i++){
+            leftV.push_back(sequence[i]);
+        }
+        for(int i = pos; i < size - 1; i++){
+            rightV.push_back(sequence[i]);
+        }
+        bool left = true;          //设置两个变量，是否为true，如果是false的话，中途会被序列更改的
+        bool right = true;
+        if(!leftV.empty()){        //判断为空 是比较重要的，因为到最后 左右两个序列都是为空的
+            left = VerifySquenceOfBST(leftV);
+        }
+        if(!rightV.empty()){
+            right = VerifySquenceOfBST(rightV);
+        }
+        if(left && right){
+            return true;
+        }else{
+            return false;
+        }
+    }
+};
+```
   
