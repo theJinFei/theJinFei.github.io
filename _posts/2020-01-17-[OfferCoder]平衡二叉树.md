@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]树的子结构"               # 标题  
 subtitle:   "判断B是不是A的子树，两个递归的使用"  #副标题 
-date:       2019-12-18 15:17:00              # 时间 
+date:       2020-01-17 10:14:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -51,3 +51,7 @@ public:
     }
 };
 ```
+
+## 0117解题思路
+
+- 注意abs函数的用法 正确的应该是if(abs() > 1)
