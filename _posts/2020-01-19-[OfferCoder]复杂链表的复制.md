@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]复杂链表的复制"               # 标题  
 subtitle:   "链表复制"  #副标题 
-date:       2019-12-15 16:58:00              # 时间 
+date:       2020-01-19 11:03:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -162,3 +162,31 @@ public:
     }
 };
 ```
+
+## 0119遍注意的点
+
+- **注意指针的移动**
+- 注意下面的函数
+
+'''C++
+    RandomListNode* splitList(RandomListNode* pHead){
+        if(pHead == NULL){
+            return NULL;
+        }
+        RandomListNode* pNode = pHead;
+        RandomListNode* copyHead = NULL;
+        RandomListNode* pcopyNode = NULL;
+        if(pNode){
+            copyHead = pcopyNode = pNode -> next;
+            pNode -> next = pcopyNode -> next;
+            pNode = pNode -> next;
+        }
+        while(pNode){
+            pcopyNode -> next = pNode -> next;     // **指向next后，要往后移动指针，否则会置空**
+            pcopyNode = pcopyNode -> next;
+            pNode -> next = pcopyNode -> next;
+            pNode = pNode -> next;                 // **同理**
+        }
+        return copyHead;
+    }
+'''
