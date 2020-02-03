@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]二叉树中结点值的和为输入整数的所有路径"               # 标题  
 subtitle:   "二叉树指定值"  #副标题 
-date:       2019-12-07              # 时间 
+date:       2020-01-18 11:42:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -61,5 +61,12 @@ public:
     }
 };
 ```
+
+
+## 0118解题思路
+- 路径pop的时候 有点问题
+- 遍历完左右子树之后，才需要pop
+- 而不是不相等了 就要pop一下
+- 需要走到叶子节点后，不相等（想一想最后执行pop_back，一定是走到叶子节点后，发现不等了，才会pop_back操作）
 
   

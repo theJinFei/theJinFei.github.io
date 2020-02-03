@@ -1,8 +1,8 @@
 ---
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]数字在排序数组中出现的次数"               # 标题  
-subtitle:   "二分查找"  #副标题 
-date:       2019-12-16 11:00:00              # 时间 
+subtitle:   "二分查找，递归，循环两种"  #副标题 
+date:       2020-1-16 11:45:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -80,5 +80,68 @@ public:
         return fun_getLastK(data, length, target, begin, end);
     }
     
+};
+```
+
+
+## 解题思路
+
+- 考验二分查找的细节
+- 循环解法
+- 首先要注意，二分查找的结束条件为 while(begin <= end>)  **<=** 很重要，这一点要记清
+- 如果data[mid] < k, 则 begin= mid + 1 -》 即往后查找
+- 如果data[mid] > k, 则 end = mid - 1 -》 即往前查找
+
+
+```C++
+class Solution {
+public:
+    int GetNumberOfK(vector<int> data ,int k) {
+        int firstK = getFirstK(data, k);
+        int lastK = getLastK(data, k);
+        if(firstK != -1 && lastK != -1){
+            return lastK - firstK + 1;
+        }else{
+            return 0;
+        }
+    }
+    int getFirstK(vector<int> data, int k){
+        int begin = 0;
+        int end = data.size() - 1;
+        while(begin <= end){
+            int mid = (begin + end) / 2;
+            if(data[mid] == k){
+                if((mid > 0 && data[mid - 1] != k) || mid == 0){        // 这两个判断，如果到这里就结束了，就直接返回第一个出现的位置
+                    return mid;
+                }else{
+                    end = mid - 1;
+                }
+            }else if(data[mid] < k){
+                begin = mid + 1;
+            }else{
+                end = mid - 1;
+            }
+        }
+        return -1;
+    }
+    int getLastK(vector<int> data, int k){
+        int begin = 0;
+        int end = data.size() - 1;
+        while(begin <= end){
+            int mid = (begin + end) / 2;
+            if(data[mid] == k){
+                if((mid < data.size() - 1 && data[mid + 1] != k) || mid == data.size() - 1){    // 这两个判断，如果到这里就结束了，就直接返回最后一个出现的位置
+                    return mid;
+                }else{
+                    begin = mid + 1;
+                }
+            }else if(data[mid] < k){
+                begin = mid + 1;
+            }else{
+                end = mid - 1;
+            }
+        }
+        return -1;
+    }
 };
 ```

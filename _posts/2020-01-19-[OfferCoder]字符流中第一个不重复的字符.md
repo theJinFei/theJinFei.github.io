@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]扑克牌顺子"               # 标题  
 subtitle:   "排序算法的应用"  #副标题 
-date:       2019-12-19 20:28:00              # 时间 
+date:       2020-1-19 16:28:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -68,4 +68,51 @@ private:
 };
 ```
 
-  
+
+## 0119解题思路
+
+- 编程的时候 理清楚思路 然后在写并不是很困难
+- 利用构造函数进行初始化 table和index（这里的index是第几个字符的意思）
+- 插入的时候，如果是第一次出现，则给table[i]赋值给index；如果是第二次出现，则给table[i]赋值给-2，往后就不用管了
+- 记得将index累加，处理下一个字符
+- 遍历的时候，如果table[i]>=0表示出现了一次，并且在256个字符中，找到最小的一个table[i]即为最后的结果
+
+
+```C++
+class Solution
+{
+public:
+    Solution(){
+        index = 0;
+        for(int i = 0; i < 256; i++){
+            table[i] = -1;
+        }
+    }
+  //Insert one char from stringstream
+    void Insert(char ch)
+    {
+        if(table[ch] == -1){
+            table[ch] = index;
+        }else if(table[ch] >= 0){
+            table[ch] = -2;
+        }
+        index++;
+    }
+  //return the first appearence once char in current stringstream
+    char FirstAppearingOnce()
+    {
+        char res = '#';
+        int temp = INT_MAX;
+        for(int i = 0; i < 256; i++){
+            if(table[i] >= 0 && table[i] < temp){
+                temp = table[i];
+                res = (char)i;
+            }
+        }
+        return res;
+    }
+private:
+    int table[256];
+    int index = 0;
+};
+```
