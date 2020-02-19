@@ -53,6 +53,10 @@ cout << "hello world ! " << endl;
 |=========|===============|============|
 
 
+- 普通链接 [Google](http://www.google.com/)
+- 图像 行内式 ![GitHub](https://avatars2.githubusercontent.com/u/3265208?v=3&s=100)
+- \\用来字符转义
+
 
 
 描述	效果	代码  <br>
@@ -63,7 +67,3 @@ cout << "hello world ! " << endl;
 加粗+斜体	加粗+斜体	**_加粗+斜体_**  <br>
 删除线	删除线	~~删除线~~ 
 
-
-
-
-$$ a^2 = b^ 2 + c^2 $$

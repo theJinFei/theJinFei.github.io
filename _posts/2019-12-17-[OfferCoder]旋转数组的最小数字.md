@@ -22,8 +22,6 @@ tags:                               #标签
 - 如果中间元素中间元素位于后面的递增子数组,此时最小元素位于中间元素的前面
 
 ```C++
-
-
 class Solution {
 public:
     int minNumberInRotateArray(vector<int> rotateArray) {

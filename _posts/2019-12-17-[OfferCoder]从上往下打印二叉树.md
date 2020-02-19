@@ -8,6 +8,8 @@ header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片
 catalog: true                       # 是否归档 
 tags:                               #标签     
     - 剑指Offer 
+    - 数据结构
+    - 树
 ---
 
 ## 题目描述
@@ -15,7 +17,7 @@ tags:                               #标签
 
 ## 解题思路
 
-- 考察sTL中的队列
+- 考察STL中的队列
 - 写法，queue<int> q,一些基本操作和stack类似，都是push，pop操作，有特殊的front
 - 注意每个入队push的是，当前队列的首元素的左右节点，所以会有一个temp变量来指示。
 
