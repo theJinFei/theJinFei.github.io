@@ -116,3 +116,67 @@ public:
     }
 };
 ```
+
+## 第二遍问题
+
+
+- ListNode* p = newNode -> next;
+- p -> next = pNode1
+- 然后就要移动p指针
+- 最后才移动pNode指针
+
+```C++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* newNode = new ListNode(-1);
+        if(l1 == NULL && l2 == NULL){
+            return NULL;
+        }
+        if(l1 == NULL && l2 != NULL){
+            return l2;
+        }
+        if(l1 != NULL && l2 == NULL){
+            return l1;
+        }
+        ListNode* pNode1 = l1;
+        ListNode* pNode2 = l2;
+        if(pNode1 -> val < pNode2 -> val){
+            newNode -> next = pNode1;
+            pNode1 = pNode1 -> next;
+        }else{
+            newNode -> next = pNode2;
+            pNode2 = pNode2 -> next;
+        }
+        ListNode* p = newNode -> next;
+        while(pNode1 != NULL && pNode2 != NULL){
+            if(pNode1 -> val <= pNode2 -> val){
+                p -> next = pNode1;
+                p = pNode1;
+                pNode1 = pNode1 -> next;
+                
+            }else{
+                p -> next = pNode2;
+                p = pNode2;
+                pNode2 = pNode2 -> next;
+                
+            }
+        }
+        if(pNode1){
+            p -> next = pNode1;
+        }
+        if(pNode2){
+            p -> next = pNode2;
+        }
+        return newNode -> next;
+    }
+};
+```
