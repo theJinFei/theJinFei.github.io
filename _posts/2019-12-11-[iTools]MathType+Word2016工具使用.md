@@ -25,7 +25,7 @@ tags:                               #标签
 
 - 参考[ctrlV闪退的情况解决办法](http://www.mathtype.cn/wenti/wufa-fuzhizhantie.html)
 - 首先还是上步failed尝试办法，将路径加入office信任，步骤如上。
-- 新版MathType目录结构如图 <br> ![avatar](./../img/mathtype_office_support.png =100x100)，
+- 新版MathType目录结构如图 <br> ![image](./../img/mathtype_office_support.png =100x100)，
 - 将新版的MathType Commands 2016.dotm文件拷贝到Office路径下root\Office16的路径，如 C:\Program Files (x86)\Microsoft Office\root\Office16\STARTUP，这个STARTUP目录下，
 - 将MathPage.wll文件拷贝到 C:\Users\username\AppData\Roaming\Microsoft\Word\STARTUP，这个应该是word为本地用户生成的目录。**（注意，这两个MathType Commands 2016.dotm，MathPage.wll应该是32位的，我也不知道为啥）**
 - 搞定
