@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]二叉树的下一个节点"               # 标题  
 subtitle:   "二叉树的遍历"  #副标题 
-date:       2019-12-07              # 时间 
+date:       2020-02-23              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
