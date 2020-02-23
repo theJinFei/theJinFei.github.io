@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]和为S的连续正数序列"               # 标题  
 subtitle:   "快慢指针的应用"  #副标题 
-date:       2019-12-14 17:07:00              # 时间 
+date:       2020-02-23 20:22:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -60,5 +60,37 @@ public:
         return res;
     }
 
+};
+```
+
+
+```C++
+class Solution {
+public:
+    vector<vector<int> > FindContinuousSequence(int sum) {
+        vector<vector<int>> res;
+        int begin = 1;
+        int end = begin + 1;
+        int cur = 0;
+        while(begin <= sum / 2){
+            int n = end - begin + 1;
+            cur = n * (begin + end) / 2;
+            if(cur == sum){
+                vector<int> t;
+                for(int i = begin; i <= end; i++){
+                    t.push_back(i);
+                }
+                res.push_back(t);
+                begin ++;
+                end = begin + 1;
+            }
+            else if(cur < sum){
+                end++;
+            }else{
+                begin++;
+            }
+        }
+        return res;
+    }
 };
 ```

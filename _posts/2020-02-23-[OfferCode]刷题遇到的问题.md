@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]刷题遇到的问题"               # 标题  
 subtitle:   "刷题遇到的问题"  #副标题 
-date:       2020-02-22 17:53:00              # 时间 
+date:       2020-02-23 22:07:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -42,3 +42,21 @@ tags:                               #标签
 
 ## 最小的K个数
 优先级队列的使用 priority_queue<int, vector<int>, greater<int> > pq;
+
+## 树的子结构
+段错误
+
+## 二叉搜索树的后序遍历序列
+索引 总是写错
+
+## 二叉树中和为某一值的路径
+不会写
+
+## 剪绳子
+dp递归公式
+
+## 序列化和反序列化
+没印象 不知道怎么下手
+
+## 数组中只出现一次的数字
+可以再练习一遍
