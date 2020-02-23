@@ -1,8 +1,8 @@
 ---
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]二叉树的深度"               # 标题  
-subtitle:   "递归求深度"  #副标题 
-date:       2019-12-16 22:59:00              # 时间 
+subtitle:   "递归，非递归求深度"  #副标题 
+date:       2020-02-23 12:21:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -43,3 +43,49 @@ public:
     }
 };
 ```
+
+## 非递归求深度
+- 借助辅助栈
+- 按照层次遍历 每次弹出该层的所有元素 然后level++
+- 最后输出level即可
+
+```C++
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    int TreeDepth(TreeNode* pRoot)
+    {
+        if(pRoot == NULL){
+            return 0;
+        }
+        queue<TreeNode*> q;
+        q.push(pRoot);
+        int level = 0;
+        while(!q.empty()){
+            int size = q.size();
+            for(int i = 0; i < size; i++){
+                TreeNode* t = q.front();
+                q.pop();
+                if(t -> left){
+                    q.push(t -> left);
+                }
+                if(t -> right){
+                    q.push(t -> right);
+                }
+            }
+            level++;
+        }
+        return level;
+    }
+};
+
+```
+
