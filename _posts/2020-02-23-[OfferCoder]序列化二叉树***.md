@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]序列化二叉树"               # 标题  
 subtitle:   "序列化，反序列化，二叉树"  #副标题 
-date:       2019-12-09 20:28:00              # 时间 
+date:       2020-02-23 21:57:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -92,4 +92,64 @@ public:
 };
 ```
 
-  
+```C++
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    char* Serialize(TreeNode *root) {    
+        if(root == NULL){
+            return NULL;
+        }
+        string str;
+        fun_Serialize(root, str);
+        char* res = new char[str.size() + 1];
+        strcpy(res, str.c_str());
+        return res;
+    }
+    void fun_Serialize(TreeNode* root, string& str){
+        if(root == NULL){
+            str += "#!";
+            return;
+        }
+        str += to_string(root -> val);
+        str += "!";
+        fun_Serialize(root -> left, str);
+        fun_Serialize(root -> right, str);
+    }
+    TreeNode* Deserialize(char *str) {
+        if(str == NULL){
+            return NULL;
+        }
+        return fun_Deserialize(&str);
+    }
+    TreeNode* fun_Deserialize(char** str){
+        if(**str == '#'){
+            (*str) += 2;
+            return NULL;
+        }
+        int val = 0;
+        while((**str) != '!' && (**str) != '\0'){
+            val = val * 10 + **str - '0';
+            (*str)++;
+        }
+        TreeNode* root = new TreeNode(val);
+        if((**str) == '\0'){
+            return root;
+        }else{
+            (*str)++;
+        }
+        root -> left = fun_Deserialize(str);
+        root -> right = fun_Deserialize(str);
+        return root;
+    }
+};
+```
