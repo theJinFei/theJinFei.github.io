@@ -1,8 +1,8 @@
 ---
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]数据流中的中位数"               # 标题  
-subtitle:   "C++最大最小堆模拟"  #副标题 
-date:       2019-12-15 21:58:00              # 时间 
+subtitle:   "C++最大最小堆模拟，优先级队列"  #副标题 
+date:       2020-02-24 12:27:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -24,6 +24,49 @@ tags:                               #标签
 - 当数目为奇数的时候，将这个值插入小顶堆中，再讲小顶堆中根节点（即最小值）插入到大顶堆中；
 - 取中位数的时候，如果当前个数为偶数，显然是取小顶堆和大顶堆根结点的平均值；如果当前个数为奇数，显然是取小顶堆的根节点
 - 主要利用STL中的，pop_heap,push_heap来维持大顶堆，小顶堆的序列**(需要掌握牢固的STL知识)**
+
+
+```C++
+
+/*
+奇数元素 往左边插入 
+然后比较 left.top > right.top // 如果成立 转换一下子即可
+*/
+class Solution {
+public:
+    void Insert(int num)
+    {
+        big_heap.push(num);
+        if(big_heap.size() - small_heap.size() > 1){
+            small_heap.push(big_heap.top());
+            big_heap.pop();
+        }
+        if(small_heap.size() > 0 && big_heap.top() > small_heap.top()){
+            int tmp = big_heap.top();
+            big_heap.pop();
+            big_heap.push(small_heap.top());
+            small_heap.pop();
+            small_heap.push(tmp);
+        }
+    }
+
+    double GetMedian()
+    { 
+        if(big_heap.size() == small_heap.size()){
+            return (big_heap.top() + small_heap.top()) / 2.0;
+        }else{
+            return big_heap.top();
+        }
+    }
+private:
+    // int count = 0;
+    // 保证 右边元素 都大于左边的元素
+    priority_queue<int, vector<int>, less<int> > big_heap; // 左边一个大顶堆 最大的优先级较高
+    priority_queue<int, vector<int>, greater<int> > small_heap; // 右边一个小顶堆 最小的优先级较高
+    
+
+};
+```
 
 ```C++
 class Solution {
