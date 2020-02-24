@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]刷题遇到的问题"               # 标题  
 subtitle:   "刷题遇到的问题"  #副标题 
-date:       2020-02-23 22:07:00              # 时间 
+date:       2020-02-24 13:20:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -60,3 +60,6 @@ dp递归公式
 
 ## 数组中只出现一次的数字
 可以再练习一遍
+
+## 数组中的逆序对
+归并排序
