@@ -41,6 +41,72 @@ tags:                               #标签
 接下来我们统计两个长度为2的子数组子数组之间的逆序对。合并子数组并统计逆序对的过程如下图如下图所示。 ![合并](https://uploadfiles.nowcoder.com/files/20170711/7491640_1499735690500_20170711085550783)
 	- 我们先用两个指针分别指向两个子数组的末尾，并每次比较两个指针指向的数字。如果第一个子数组中的数字大于第二个数组中的数字，则构成逆序对，并且逆序对的数目等于第二个子数组中剩余数字的个数，如下图（a）和（c）所示。如果第一个数组的数字小于或等于第二个数组中的数字，则不构成逆序对，如图b所示。每一次比较的时候，我们都把较大的数字从后面往前复制到一个辅助数组中，确保 辅助数组（记为copy） 中的数字是递增排序的。在把较大的数字复制到辅助数组之后，把对应的指针向前移动一位，接下来进行下一轮比较。
 	- 过程：先把数组分割成子数组，先统计出子数组内部的逆序对的数目，然后再统计出两个相邻子数组之间的逆序对的数目。在统计逆序对的过程中，还需要对数组进行排序。如果对排序算法很熟悉，我们不难发现这个过程实际上就是归并排序。
+  
+```C++
+class Solution {
+public:
+    int result = 0;
+     
+    int InversePairs(vector<int> data) {
+         
+        int len = data.size();
+        vector<int> temp(len);
+        MergeSort(data, temp, 0, len-1);
+        return result;
+    }
+     
+    void MergeSort(vector<int>& data, vector<int>& temp, int begin, int end)
+    {
+        if (begin < end)
+        {
+            int mid = (end - begin) / 2 + begin;
+            MergeSort(data, temp, begin, mid);
+            MergeSort(data, temp, mid+1, end);
+            MergeArray(data, temp, begin, mid, end);
+        }
+    }
+     
+    void MergeArray(vector<int>& data, vector<int>& temp, int begin, int mid, int end)
+    {
+        int i = begin;
+        int j = mid + 1;
+        int k = 0;
+         
+        while (i <= mid && j <= end)
+        {
+            if (data[i] < data[j])
+            {
+                temp[k++] = data[i++];
+            }
+            // 若左半部分当前元素大于右半部分当前元素
+            // 则左半部分当前元素后面的每个值都大于它
+            else
+            {
+                result += (mid - i + 1);
+                result %=  1000000007;
+                temp[k++] = data[j++];
+            }
+        }
+         
+        while (i <= mid)
+        {
+            temp[k++] = data[i++];
+        }
+         
+        while (j <= end)
+        {
+            temp[k++] = data[j++];
+        }
+         
+        for (i = 0; i < k; i++)
+        {
+            data[begin+i] = temp[i];
+        }
+    }
+};
+```
+
+
 ```C++
 class Solution {
 public:
