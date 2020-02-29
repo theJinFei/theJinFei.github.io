@@ -42,23 +42,23 @@ public:
         if(*str != '\0' && *pattern == '\0'){
             return false;
         }
-        
-        // 处理下一个字符为'*'的情况
         if(*(pattern + 1) == '*'){
-            if(*str == *pattern || *pattern == '.' && *str != '\0'){
-                return isMatch(str, pattern + 2) ||         // 1.1
-                    isMatch(str + 1, pattern + 2) ||        // 1.2
-                    isMatch(str + 1, pattern);              // 1.3
+            //  (atr, b*tr)  (atr, a*tr) (atr, .*tr) 
+            if((*str != '\0' && *str == *pattern) || (*str != '\0' && *pattern == '.')){ 
+                return isMatch(str, pattern + 2) || //模式后移2，视为x*匹配0个字符
+                    isMatch(str + 1, pattern + 2) ||  //视为模式匹配1个字符
+                    isMatch(str + 1, pattern);  //*匹配1个，再匹配str中的下一个
+                    
             }else{
-                return isMatch(str, pattern + 2);           // 1.0
+                return isMatch(str, pattern + 2);
             }
         }
-        // 当模式中的第二个字符不是'*'时,如果相匹配，则字符串和模式都后移一个字符
-        if(*str == *pattern || (*pattern == '.' && *str != '\0')){  // 2
+        if(*str == *pattern || (*pattern == '.' && *str != '\0')){
             return isMatch(str + 1, pattern + 1);
         }
         return false;
     }
+    
 };
 ```
 
