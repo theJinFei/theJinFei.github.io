@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]字符串的排列"               # 标题  
 subtitle:   "回溯，递归遍历"  #副标题 
-date:       2019-12-08              # 时间 
+date:       2020-02-29 21:50:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -48,7 +48,7 @@ public:
         }
         
         for(int i = begin; i < str.size(); i++){
-            if(i != begin && str[i] == str[begin]){
+            if(i != begin && str[i] == str[begin]){     // 为了解决重复元素
                 continue;
             }
             
