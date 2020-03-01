@@ -38,10 +38,20 @@ tags:                               #标签
 下标出问题 应该是 left[i] = left[i - 1] * A[i - 1]
 
 ## 旋转数组
-不知道停止条件
-
+不知道停止条件 -> 
+```C++
+while(array[left] > array[right]){
+    if(right - left == 1){
+        return data[left];
+    }
+}
+                    
+```
 ## 最小的K个数
-优先级队列的使用 priority_queue<int, vector<int>, greater<int> > pq;
+优先级队列的使用 
+```C++
+priority_queue<int, vector<int>, greater<int> > pq; // 小元素具有较高优先级
+```
 
 ## 树的子结构
 段错误
@@ -57,6 +67,9 @@ dp递归公式
 
 ## 序列化和反序列化
 没印象 不知道怎么下手
+```C++
+先序遍历
+```
 
 ## 数组中只出现一次的数字
 可以再练习一遍
