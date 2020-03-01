@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]把字符串转换成整数"               # 标题  
 subtitle:   "字符串转整数，各种异常的处理"  #副标题 
-date:       2019-12-09 17:54:00              # 时间 
+date:       2020-03-01 20:19:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -31,6 +31,39 @@ tags:                               #标签
 ## 解题思路
 
 -  各种异常的处理过程
+
+```C++
+class Solution {
+public:
+    int StrToInt(string str) {
+        if(str.size() == 0){
+            return 0;
+        }
+        int i = 0;
+        while(str[i] == ' '){
+            i++;
+        }
+        int flag = 1;
+        if(str[i] == '-' || str[i] == '+'){
+            if(str[i] == '-'){
+                flag = -1;
+            }
+            i++;
+        }
+        long long res = 0;
+        for(; i < str.size(); i++){
+            if(str[i] < '0' || str[i] > '9'){
+                return 0;
+            }
+            res = res * 10 + str[i] - '0';
+            if(res * flag > INT_MAX || res * flag < INT_MIN){
+                return 0;
+            }
+        }
+        return res * flag;
+    }
+};
+```
 
 ```C++
 class Solution {
