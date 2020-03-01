@@ -40,15 +40,18 @@ public:
             return 0;
         }
         int i = 0;
-        while(str[i] == ' '){
+        while(str[i] == ' '){    // 判断前面的空值
             i++;
         }
         int flag = 1;
-        if(str[i] == '-' || str[i] == '+'){
+        if(str[i] == '-' || str[i] == '+'){    // 判断正负号
             if(str[i] == '-'){
                 flag = -1;
             }
             i++;
+        }
+        if(str[i] == '0'){    // 开头有0的情况
+            return 0;
         }
         long long res = 0;
         for(; i < str.size(); i++){
@@ -56,7 +59,7 @@ public:
                 return 0;
             }
             res = res * 10 + str[i] - '0';
-            if(res * flag > INT_MAX || res * flag < INT_MIN){
+            if(res * flag > INT_MAX || res * flag < INT_MIN){    // 判断溢出
                 return 0;
             }
         }
