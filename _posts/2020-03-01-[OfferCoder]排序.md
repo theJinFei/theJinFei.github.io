@@ -105,5 +105,18 @@ void adjustHeap(vector<int>& data, int i, int length){
 
 ## 希尔排序
 ```C++
-
+void Sort(vector<int>& data){
+    int size = data.size();
+    // 增量gap，并逐步缩小增量
+    for(int gap = size / 2; gap > 0; gap--){
+        // 从第gap个元素，逐个对其所在组进行插入排序操作
+        for(int i = gap; i < size; i++){
+            int j = i;
+            while(j - gap >= 0 && array[j] < array[j - gap]){   // 对同组的元素 采用插入排序
+                swap(data[j], data[j - gap]);
+                j -= gap;
+            }
+        }
+    }
+}
 ```
