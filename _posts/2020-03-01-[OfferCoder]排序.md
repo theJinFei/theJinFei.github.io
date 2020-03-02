@@ -92,7 +92,7 @@ void adjustHeap(vector<int>& data, int i, int length){
         if(k + 1 < length && data[k] < data[k + 1]){
             k++;
         }
-        if(data[k] > temp){
+        if(data[k] > temp){ // 从下面找一个最大的
             datat[i] = data[k];
             i = k;
         }else{
