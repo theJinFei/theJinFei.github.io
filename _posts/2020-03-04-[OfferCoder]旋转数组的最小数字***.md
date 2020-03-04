@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]旋转数组的最小数字"               # 标题  
 subtitle:   "二分查找"  #副标题 
-date:       2020-02-29 21:35:00              # 时间 
+date:       2020-03-04 12:28:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -20,6 +20,7 @@ tags:                               #标签
 - 循环条件，满足旋转的性质，即（a[left] > a[right]）
 - 如果中间元素>=a[left],则易知最小元素一定是在后面的，即left = mid
 - 如果中间元素中间元素位于后面的递增子数组,此时最小元素位于中间元素的前面
+- 注意条件，有等于
 
 ```C++
 class Solution {

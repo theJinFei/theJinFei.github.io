@@ -43,14 +43,14 @@ public:
             return false;
         }
         if(*(pattern + 1) == '*'){
-            //  (atr, b*tr)  (atr, a*tr) (atr, .*tr) 
+            //  (atr, b*tr)  (atr, a*tr) (atr, .*tr)  
             if((*str != '\0' && *str == *pattern) || (*str != '\0' && *pattern == '.')){ 
                 return isMatch(str, pattern + 2) || //模式后移2，视为x*匹配0个字符
                     isMatch(str + 1, pattern + 2) ||  //视为模式匹配1个字符
                     isMatch(str + 1, pattern);  //*匹配1个，再匹配str中的下一个
                     
             }else{
-                return isMatch(str, pattern + 2);
+                return isMatch(str, pattern + 2);   // 视为匹配0个字符
             }
         }
         if(*str == *pattern || (*pattern == '.' && *str != '\0')){
