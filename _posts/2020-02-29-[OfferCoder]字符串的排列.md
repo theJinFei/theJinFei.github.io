@@ -48,7 +48,7 @@ public:
         }
         
         for(int i = begin; i < str.size(); i++){
-            if(i != begin && str[i] == str[begin]){     // 为了解决重复元素
+            if(i != begin && str[i] == str[begin]){     // 为了解决重复元素f
                 continue;
             }
             
