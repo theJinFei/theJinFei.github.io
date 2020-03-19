@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]最小的K个数"               # 标题  
 subtitle:   "STL，multiset使用greater<int>重载函数,优先级队列堆"  #副标题 
-date:       2020-02-23 21:27:00              # 时间 
+date:       2020-03-12 21:27:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -15,6 +15,54 @@ tags:                               #标签
 > 输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
 
 
+
+## 基于划分的解题思路
+```C++
+class Solution {
+public:
+    vector<int> GetLeastNumbers_Solution(vector<int> input, int k) {
+        if( input.size() == 0 || k > input.size() || k <= 0){
+            return {};
+        }
+        if(k == input.size()){
+            return input;
+        }
+        int begin = 0;
+        int end = input.size() - 1;
+        int index = partition(input, begin, end);
+        while(index != k - 1){
+            if(index > k - 1){
+                end = index - 1;
+                index = partition(input, begin, end);
+            }else{
+                begin = index + 1;
+                index = partition(input, begin, end);
+            }
+        }
+        vector<int> res;
+        for(int i = 0; i < k; i++){
+            res.push_back(input[i]);
+        }
+        return res;
+    }
+    int partition(vector<int>& data, int begin, int end){
+        int pivot = data[begin];
+        while(begin < end){
+            while(begin < end && data[end] >= pivot){
+                end--;
+            }
+            data[begin] = data[end];
+            while(begin < end && data[begin] <= pivot){
+                begin++;
+            }
+            data[end] = data[begin];
+        }
+        data[begin] = pivot;
+        
+        return begin;
+    }
+};
+```
 
 
 ## 解题思路
