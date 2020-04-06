@@ -23,6 +23,28 @@ tags:                               #标签
 ```C++
 class Solution {
 public:
+    vector<int> singleNumbers(vector<int>& nums) {
+        int sum = 0;
+        for(auto& i : nums){
+            sum ^= i;
+        }
+        int k = sum & (-sum);
+        vector<int> v(2, 0);
+        for(auto i : nums){
+            if(i & k){  // 注意这一步，不一定为1
+                v[0] ^= i;
+            }else{
+                v[1] ^= i;
+            }
+        }
+        return v;
+    }
+};
+```
+
+```C++
+class Solution {
+public:
     /*
     返回num的最低位的1，其他各位都为0
     */
@@ -40,7 +62,8 @@ public:
     */
     bool IsBit1(int data,int res)
     {
-        return ((data&res)==0) ? false:true;
+        return ((data&res)==0) ? false:true;    // // **这个不一定位1， m是只含有1个1，但是这个1的位置不一定在末尾**
+                                                // 应该用false进行判断
     }
  
     void FindNumsAppearOnce(vector<int> data,int *num1,int *num2)
