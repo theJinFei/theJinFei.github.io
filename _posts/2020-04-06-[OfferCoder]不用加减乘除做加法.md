@@ -34,7 +34,7 @@ public:
         int carry = 0;
         while(b != 0){
             sum = a ^ b;
-            carry = (unsigned int)(a & b) << 1;
+            carry = (unsigned int)(a & b) << 1; // 无符号整形
             a = sum;
             b = carry;
         }

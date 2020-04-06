@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]剪绳子"               # 标题  
 subtitle:   "dp"  #副标题 
-date:       2020-02-29              # 时间 
+date:       2020-04-06 16:20:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -26,7 +26,58 @@ tags:                               #标签
 - dp
 - f(n)的时候，可以切一刀f[i],剩下的f[n - i]
 - 初始化的时候要注意初值问题
+- dp[i] = max(dp[j], dp[i - j]);
 
+```C++
+class Solution {
+public:
+    int cuttingRope(int n) {
+        vector<int> dp(n + 1, 0);
+        if(n < 2){
+            return 1;
+        }
+        if(n == 2){
+            return 1;
+        }
+        if(n == 3){
+            return 2;
+        }
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 3;
+        int res = 0;
+        for(int i = 4; i <= n; i++){
+            for(int j = 1; j <= i / 2; j++){
+                dp[i] = max(dp[i], dp[j] * dp[i - j]);
+            }
+        }
+        return dp[n];
+    }
+};
+```
+
+## 大数溢出的问题
+
+- 选择最多的3
+
+```C++
+class Solution {
+public:
+    int cuttingRope(int n) {
+        if(n<=3) return n-1;
+        int mod = 1000000007;
+        long long res = 1;
+        while(n>4){
+            res*=3;
+            res%=mod;
+            n-=3;
+        }
+        res = res*n%mod;
+        return res;
+    }
+};
+```
 
 ```C++
 class Solution {
