@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]滑动窗口的最大值"               # 标题  
 subtitle:   "滑动窗口固定大小"  #副标题 
-date:       2019-12-15 10:42:00            # 时间 
+date:       2020-04-06 10:42:00            # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -20,6 +20,32 @@ tags:                               #标签
 - 否则，找vec的最大元素，进行插入即可，
 - 插入完记得删除vec的头元素，让其保持始终size等于窗口的大小
 - 最后一个需要单独进行判断
+
+
+```C++
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        if(nums.size() == 0 || k > nums.size()){
+            return {};
+        } 
+        multiset<int> sets;
+        vector<int> res;
+        int left = 0;
+        for(int i = 0; i < nums.size(); i++){
+            if(sets.size() < k){
+                sets.insert(nums[i]);
+            }else{
+                res.push_back(*sets.rbegin());
+                sets.erase(sets.find(nums[i - k])); // 这里不能直接删元素，需要找迭代器
+                sets.insert(nums[i]);
+            }
+        }
+        res.push_back(*sets.rbegin());
+        return res;
+    }
+};
+```
 
 ```C++
 class Solution {
