@@ -19,6 +19,82 @@ tags:                               #标签
 - 我们设立数组dp[i][j]，用数组中的第n个数表示骰子点数和为j的次数
 - 第k次投掷骰子的数可能为1~6中的任意一个数，如果我们假设第k次投掷骰子最终所有的和为n，那么和为n的次数就为前一次投掷（第k-1次投掷）和为n-1、n-2、n-3、n-4、n-5、n-6的次数的总和。
 - 同时知道第1次投掷和为1,2,3,4,5,6的次数均为1；同时第k次投掷时，和为0、1、2…k-1将不会存在；
+  
+## 动态规划
+- [参考](https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/solution/nge-tou-zi-de-dian-shu-dong-tai-gui-hua-ji-qi-yo-3/)
+- 通过题目我们知道一共投掷 n 枚骰子，那最后一个阶段很显然就是：当投掷完 n 枚骰子后，各个点数出现的次数。
+
+- 注意，这里的点数指的是前 n 枚骰子的点数和，而不是第 n 枚骰子的点数，下文同理。
+
+- 找出了最后一个阶段，那状态表示就简单了。
+
+- 1. 首先用数组的第一维来表示阶段，也就是投掷完了几枚骰子。
+- 2. 然后用第二维来表示投掷完这些骰子后，可能出现的点数。
+- 数组的值就表示，该阶段各个点数出现的次数。
+- 3. 所以状态表示就是这样的：dp[i][j]dp[i][j] ，表示投掷完 ii 枚骰子后，点数 jj 的出现次数。
+
+作者：huwt
+链接：https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/solution/nge-tou-zi-de-dian-shu-dong-tai-gui-hua-ji-qi-yo-3/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+```C++
+class Solution {
+public:
+    vector<double> twoSum(int n) {
+        int dp[15][70];
+        memset(dp, 0, sizeof(dp));
+        for (int i = 1; i <= 6; i ++) {
+            dp[1][i] = 1;
+        }
+        for (int i = 2; i <= n; i ++) {
+            for (int j = i; j <= 6*i; j ++) {
+                for (int cur = 1; cur <= 6; cur ++) {
+                    if (j - cur <= 0) {
+                        break;
+                    }
+                    dp[i][j] += dp[i-1][j-cur];
+                }
+            }
+        }
+        int all = pow(6, n);
+        vector<double> ret;
+        for (int i = n; i <= 6 * n; i ++) {
+            ret.push_back(dp[n][i] * 1.0 / all);
+        }
+        return ret;
+    }
+}; 
+```
+
+## 递归迭代 会出现超时
+
+```C++
+class Solution {
+public:
+    int countSum(int n, int sum){
+        if(n < 1 || sum < n || sum > 6 * n){
+            return 0;
+        }
+        if(n == 1){
+            return 1;
+        }
+        int rescount = 0;
+        rescount = countSum(n - 1, sum - 1) + countSum(n - 1, sum - 2) + countSum(n - 1, sum - 3) 
+        + countSum(n - 1, sum - 4) + countSum(n - 1, sum - 5) + countSum(n - 1, sum - 6);
+        return mmap[n];  
+    }
+    vector<double> twoSum(int n) {
+        int total = pow(6, n);
+        vector<double> res;
+        for(int i = n; i <= 6 * n; i++){
+            res.push_back((double)countSum(n, i) / total);
+        }
+        return res;
+    }
+};
+```
+
 ```JAVA
 public class Solution {
     /**
