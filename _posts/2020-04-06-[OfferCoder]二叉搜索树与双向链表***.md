@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]二叉搜索树与双向链表"               # 标题  
 subtitle:   "二叉搜索树、双向链表"  #副标题 
-date:       2020-02-24 15:18:00              # 时间 
+date:       2020-04-06 22:15:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -23,6 +23,58 @@ tags:                               #标签
 - 把链表中的当前最大值与根节点连接起来
 - 去转换右子树
 - 把右子树中最小的节点连接起来
+
+```C++
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+
+    Node() {}
+
+    Node(int _val) {
+        val = _val;
+        left = NULL;
+        right = NULL;
+    }
+
+    Node(int _val, Node* _left, Node* _right) {
+        val = _val;
+        left = _left;
+        right = _right;
+    }
+};
+*/
+class Solution {
+public:
+    Node* head; // 这里因为子函数需要对head，tail进行修改
+    Node* tail;
+    Node* treeToDoublyList(Node* root) {
+        if(!root) return nullptr;
+        helper(root);
+        head -> left = tail;    // 循环链表
+        tail -> right = head;
+        return head;
+    }
+    void helper(Node* root) {
+        if(!root)  return;
+        helper(root->left);
+        if(!head) {
+            head = root;   // 找到head
+            tail = root;    // 对pre进行初始化
+        } else {
+            tail -> right = root;
+            root -> left = tail;
+            tail = root;
+        }
+        helper(root->right);
+    }
+};
+
+```
 
 ```C++
 /*
