@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]和为S的连续正数序列"               # 标题  
 subtitle:   "快慢指针的应用"  #副标题 
-date:       2020-02-23 20:22:00              # 时间 
+date:       2020-04-06 11:46:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -28,6 +28,39 @@ tags:                               #标签
 - 当curSum < sum的时候一样，end++后，curSum更新
 - 同理 curSum > sum
 
+
+```C++
+class Solution {
+public:
+    vector<vector<int>> findContinuousSequence(int target) {
+        vector<vector<int>> res;
+        int begin = 1;
+        int end = begin;
+        int sum = 0;
+        while(begin <= target / 2){
+            sum += end;
+            if(sum == target){
+                vector<int> v;
+                for(int i = begin; i <= end; i++){
+                    v.push_back(i);
+                }
+                res.push_back(v);
+                sum = 0;
+                begin = begin + 1;
+                end = begin;
+            }else if(sum < target){
+                end++;
+            }else {
+                sum = 0;
+                begin = begin + 1;
+                end = begin;
+            }
+        }
+        return res;
+    }
+
+};
+```
 
 ```C++
 class Solution {
