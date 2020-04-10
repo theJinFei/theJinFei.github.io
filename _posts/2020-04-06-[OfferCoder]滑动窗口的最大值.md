@@ -37,7 +37,7 @@ public:
                 sets.insert(nums[i]);
             }else{
                 res.push_back(*sets.rbegin());
-                sets.erase(sets.find(nums[i - k])); // 这里不能直接删元素，需要找迭代器
+                sets.erase(sets.find(nums[i - k])); // 这里不能直接删元素，需要招
                 sets.insert(nums[i]);
             }
         }

@@ -31,12 +31,7 @@ tags:                               #标签
 - 1. 首先用数组的第一维来表示阶段，也就是投掷完了几枚骰子。
 - 2. 然后用第二维来表示投掷完这些骰子后，可能出现的点数。
 - 数组的值就表示，该阶段各个点数出现的次数。
-- 3. 所以状态表示就是这样的：dp[i][j]dp[i][j] ，表示投掷完 ii 枚骰子后，点数 jj 的出现次数。
-
-作者：huwt
-链接：https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/solution/nge-tou-zi-de-dian-shu-dong-tai-gui-hua-ji-qi-yo-3/
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+- 3. 所以状态表示就是这样的：dp[i][j]，表示投掷完 ii 枚骰子后，点数 jj 的出现次数。
 
 ```C++
 class Solution {
