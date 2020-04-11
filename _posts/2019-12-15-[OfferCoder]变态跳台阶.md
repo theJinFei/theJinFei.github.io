@@ -57,3 +57,28 @@ public:
     }
 };
 ```
+
+
+## 普通跳台阶 递归+记忆方式
+```C++
+class Solution {
+public:
+    vector<int> memo;
+    int helper(int n){
+        if(n == 1){
+            return 1;
+        }
+        if(n == 2){
+            return 2;
+        }
+        if(memo[n] == -1){
+            memo[n] = helper(n - 1) + helper(n - 2);
+        }
+        return memo[n];
+    }
+    int climbStairs(int n) {
+        memo.resize(n + 1, -1);
+        return helper(n);
+    }
+};
+```
