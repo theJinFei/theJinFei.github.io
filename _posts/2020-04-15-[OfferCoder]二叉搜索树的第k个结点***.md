@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]二叉搜索树的第k个结点"               # 标题  
 subtitle:   "二叉搜索树、中序遍历"  #副标题 
-date:       2019-12-18 19:04:00              # 时间 
+date:       2020-04-15 10:04:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -114,3 +114,70 @@ public:
 - 中序遍历存在问题，不能够正确遍历
 - 递归结束的条件，pRoot == NULL
 - 段错误，数组访问问题，k当等于0的时候，访问data[k-1]会触发段错误
+
+```C++
+```C++
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    int count = 0;
+    TreeNode* res = nullptr;
+    TreeNode* KthNode(TreeNode* pRoot, int k)
+    {
+        if(pRoot != nullptr){
+            KthNode(pRoot -> left, k);
+            count++;
+            if(count == k){
+                res = pRoot;
+            }
+            KthNode(pRoot -> right, k);
+        }
+        return res;
+    }
+};
+```
+
+## 第k大
+```C++
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    int count = 0;
+    TreeNode* KthNode(TreeNode* pRoot, int k)
+    {
+        if(pRoot != nullptr){
+            TreeNode* r1 = KthNode(pRoot -> right, k);
+            if(r1 != nullptr){
+                return r1;
+            }
+            count++;
+            if(count == k){
+                return pRoot;
+            }
+            TreeNode* r2 = KthNode(pRoot -> left, k);
+            if(r2 != nullptr){
+                return r2;
+            }
+        }
+        return nullptr;
+    }
+};
+```
