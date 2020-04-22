@@ -2,7 +2,7 @@
 layout:     post                    # 使用的布局（不需要改） 
 title:      "[剑指Offer]删除链表中重复的结点"               # 标题  
 subtitle:   "删除链表中的重复节点"  #副标题 
-date:       2020-01-14 16:19:00              # 时间 
+date:       2020-04-22 17:39:00              # 时间 
 author:     "JinFei"                    # 作者 
 header-img: "img/post-bg-desk.jpg"    #这篇文章标题背景图片 
 catalog: true                       # 是否归档 
@@ -30,6 +30,47 @@ pNode -> next = pTemp;  <br>
 这里的区别是，第二个会报异常的，首先PNode就没有初始化值，根本不可能找到 PNode-> next ，终于想清楚了！
 - 注意指针的使用
 
+
+```C++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteNode(ListNode* head, int val) {
+        if(head == nullptr){
+            return nullptr;
+        }
+        ListNode* pre = new ListNode(-1);
+        pre -> next = head;
+        ListNode* node = head;
+        while(node){
+            if(node -> val == val){
+                while(node -> next != nullptr && node -> next -> val == val){
+                    node = node -> next;
+                }
+                pre -> next = node -> next;
+                pre = node -> next;
+                if(head -> val == val){
+                    head = node -> next;
+                }
+                node = node -> next;
+                
+            }else{
+                pre = node;
+                node = node -> next;
+            }
+            
+        }
+        return head;
+    }
+};
+```
 
 ```C++
 /*
