@@ -28,6 +28,47 @@ tags:                               #标签
 
 
 ```C++
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        if(s == nullptr){
+            return false;
+        }
+        if(funHelper(s, t)){
+            return true;
+        }
+        return (isSubtree(s -> left, t) || isSubtree(s -> right, t));
+        
+    }
+    bool funHelper(TreeNode* root1, TreeNode* root2){
+        if(root1 == nullptr && root2 == nullptr){
+            return true;
+        }
+        if(root1 == nullptr || root2 == nullptr){
+            return false;
+        }
+        if(root1 -> val != root2 -> val){
+            return false;
+        }
+        return funHelper(root1 -> left, root2 -> left) && 
+        funHelper(root1 -> right, root2 -> right);
+    }
+};
+```
+
+
+```C++
 /*
 struct TreeNode {
 	int val;
@@ -109,7 +150,7 @@ public:
             res = HasSubtree(pRoot1 -> right, pRoot2);
         }
         return res;
-    }
+    } 
     
     bool DoesTree1HaveTree2(TreeNode* pRoot1, TreeNode* pRoot2){
         if(pRoot2 == NULL){
